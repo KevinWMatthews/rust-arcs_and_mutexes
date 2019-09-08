@@ -42,7 +42,16 @@ fn main() {
     }
 
     {
-        *arc.lock().unwrap() += 1;
+        // The Deref trait dereferences the arc and applies lock() to its inner value?
+        let mut mutex_guard: MutexGuard<i32> = arc.lock().unwrap();
+        *mutex_guard += 1;
         println!("arc: {:?}", arc);
     }
+    println!("arc: {:?}", arc);
+
+    {
+        *arc.lock().unwrap() += 1;
+    }
+    println!("arc: {:?}", arc);
+
 }
