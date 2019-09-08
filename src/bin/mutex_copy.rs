@@ -16,7 +16,7 @@ fn main() {
         let mutex_guard = lock_result.unwrap();
 
         // Access the member within the MutexGuard using the Deref and DerefMut traits.
-        let result = *mutex_guard;
+        let result: i32 = *mutex_guard;
         println!("result: {}", result);
         println!("mutex: {:?}", mutex); // Data is locked!
     } // Mutex is unlocked when the mutex guard (lock result?) goes out of scope.
@@ -31,7 +31,12 @@ fn main() {
         println!("");
         let lock_result = mutex.lock();
         let mut mutex_guard = lock_result.unwrap();
+
+        // Dereference and modify the value using the DerefMut trait.
         *mutex_guard += 1;
+
+        let value = *mutex_guard;
+        println!("value: {:?}", value);
         println!("mutex: {:?}", mutex); // Data is locked!
     }
     // This must lock and unlock the mutex internally
