@@ -39,7 +39,8 @@ fn main() {
         println!("value: {:?}", value);
         println!("mutex: {:?}", mutex); // Data is locked!
     }
-    // This must lock and unlock the mutex internally
+
+    // The Debug trait must lock and unlock the mutex internally
     println!("mutex: {:?}", mutex);
 
     {

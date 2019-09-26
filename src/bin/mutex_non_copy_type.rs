@@ -31,9 +31,6 @@ fn main() {
         println!("value: {}", value);
     }
 
-
-    //
-
     {
         let lock_result = mutex.lock();
 

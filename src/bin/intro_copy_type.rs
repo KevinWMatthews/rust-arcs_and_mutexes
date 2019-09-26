@@ -1,3 +1,6 @@
+// TODO: experiment with Arcs without a mutex, even though they aren't realistic.
+// Can Copy types be moved out of an Arc?
+
 use std::sync::{Arc, Mutex};
 use std::sync::{LockResult, MutexGuard};
 
@@ -6,11 +9,11 @@ fn main() {
     println!("arc: {:?}", arc);
 
     {
-        // Dereferencing the Arc gives the Mutex, which can not be moved
+        // Dereferencing the Arc gives the Mutex, which can not be moved out of the Arc
+        // Borrow the Mutex while dereferencing the Arc.
         let mutex: &Mutex<i32> = &*arc;
 
-        // Lock the mutex, which apparenty can be done on a &Mutex?
-        // Yes - methods apply the Deref trait.
+        // Lock the mutex, which can be done on a &Mutex because of the Deref trait.
         let lock_result: LockResult<MutexGuard<i32>> = mutex.lock();
 
         let mutex_guard: MutexGuard<i32> = lock_result.unwrap();
@@ -42,7 +45,8 @@ fn main() {
     }
 
     {
-        // The Deref trait dereferences the arc and applies lock() to its inner value?
+        // The Deref trait dereferences the Arc and calls lock() on its inner value
+        // (the Mutex) and not to the Arc itself.
         let mut mutex_guard: MutexGuard<i32> = arc.lock().unwrap();
         *mutex_guard += 1;
         println!("arc: {:?}", arc);
@@ -53,5 +57,4 @@ fn main() {
         *arc.lock().unwrap() += 1;
     }
     println!("arc: {:?}", arc);
-
 }
