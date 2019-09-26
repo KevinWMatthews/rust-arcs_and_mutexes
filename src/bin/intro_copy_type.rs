@@ -1,6 +1,3 @@
-// TODO: experiment with Arcs without a mutex, even though they aren't realistic.
-// Can Copy types be moved out of an Arc?
-
 use std::sync::{Arc, Mutex};
 use std::sync::{LockResult, MutexGuard};
 

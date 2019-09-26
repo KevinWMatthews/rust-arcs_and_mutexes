@@ -1,5 +1,3 @@
-// https://doc.rust-lang.org/std/sync/struct.Mutex.htm
-
 use std::sync::Mutex;
 
 fn main() {

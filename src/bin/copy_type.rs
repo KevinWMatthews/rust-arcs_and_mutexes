@@ -1,5 +1,3 @@
-// TODO review why the data inside the mutex is mutable (interior mutability)
-
 use std::sync::{Arc, Mutex};
 use std::thread;
 
